@@ -1,16 +1,21 @@
-import { render } from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import 'react-calendar/dist/Calendar.css';
+import 'react-toastify/dist/ReactToastify.min.css'
 import './app/layout/styles.css';
 import App from './app/layout/App';
 import { store, StoreContext } from './app/stores/store';
-import { BrowserRouter } from 'react-router-dom';
+import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
+import { createBrowserHistory } from "history";
 
-const rootElement = document.getElementById('root');
-render(
+export const history = createBrowserHistory({ window });
+
+// const rootElement = document.getElementById('root');
+ReactDOM.render(
   <StoreContext.Provider value={store}>
-    <BrowserRouter>
+    <HistoryRouter history={history}>
       <App />
-    </BrowserRouter>
+    </HistoryRouter>
   </StoreContext.Provider>,
-  rootElement
+  document.getElementById('root')
 );
